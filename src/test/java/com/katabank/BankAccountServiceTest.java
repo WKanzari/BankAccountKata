@@ -3,6 +3,8 @@ package com.katabank;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.katabank.entities.BankAccount;
+import com.katabank.exceptions.InsufficientBalanceException;
+import com.katabank.exceptions.InvalidAmountException;
 import com.katabank.model.Statement;
 import com.katabank.services.BankAccountService;
 import com.katabank.utils.Constants;
@@ -33,8 +35,11 @@ public class BankAccountServiceTest {
     }
 
     @Test
-    public void testCreditNegativeAmount() {
-        assertThrows(IllegalArgumentException.class, () -> bankAccountService.credit(account.getId(), -50));
+    void testCreditNegativeAmount() {
+        InvalidAmountException exception = assertThrows(InvalidAmountException.class, () -> {
+            bankAccountService.credit(1L, -100);
+        });
+        assertEquals(Constants.INVALID_AMOUNT_MESSAGE, exception.getMessage());
     }
 
     @Test
@@ -46,10 +51,11 @@ public class BankAccountServiceTest {
     }
 
     @Test
-    public void testDebitInsufficientBalance() {
-        BankAccount account = bankAccountService.createAccount();
-        bankAccountService.credit(account.getId(), 100);
-        assertThrows(IllegalStateException.class, () -> bankAccountService.debit(account.getId(), 150));
+    void testDebitInsufficientBalance() {
+        InsufficientBalanceException exception = assertThrows(InsufficientBalanceException.class, () -> {
+            bankAccountService.debit(1L, 1000);
+        });
+        assertEquals(Constants.INSUFFICIENT_BALANCE_MESSAGE, exception.getMessage());
     }
 
     @Test

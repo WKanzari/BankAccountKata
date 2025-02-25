@@ -32,4 +32,19 @@ public class BankAccountServiceTest {
     public void testCreditNegativeAmount() {
         assertThrows(IllegalArgumentException.class, () -> bankAccountService.credit(account.getId(), -50));
     }
+
+    @Test
+    public void testDebit() {
+        BankAccount account = bankAccountService.createAccount();
+        bankAccountService.credit(account.getId(), 100);
+        bankAccountService.debit(account.getId(), 50);
+        assertEquals(50, bankAccountService.getBalance(account.getId()));
+    }
+
+    @Test
+    public void testDebitInsufficientBalance() {
+        BankAccount account = bankAccountService.createAccount();
+        bankAccountService.credit(account.getId(), 100);
+        assertThrows(IllegalStateException.class, () -> bankAccountService.debit(account.getId(), 150));
+    }
 }

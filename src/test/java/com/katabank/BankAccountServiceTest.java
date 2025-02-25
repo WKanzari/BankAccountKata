@@ -3,11 +3,15 @@ package com.katabank;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.katabank.entities.BankAccount;
+import com.katabank.model.Statement;
 import com.katabank.services.BankAccountService;
+import com.katabank.utils.Constants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 public class BankAccountServiceTest {
@@ -56,9 +60,9 @@ public class BankAccountServiceTest {
         List<Statement> statements = bankAccountService.printStatement(account.getId());
 
         assertEquals(2, statements.size());
-        assertEquals("Deposit", statements.get(0).getType());
+        assertEquals(Constants.DEPOSIT, statements.get(0).getType());
         assertEquals(100, statements.get(0).getAmount());
         assertEquals(50, statements.get(1).getAmount());
-        assertEquals("Withdrawal", statements.get(1).getType());
+        assertEquals(Constants.WITHDRAWAL, statements.get(1).getType());
     }
 }

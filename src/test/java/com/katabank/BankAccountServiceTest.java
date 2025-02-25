@@ -47,4 +47,18 @@ public class BankAccountServiceTest {
         bankAccountService.credit(account.getId(), 100);
         assertThrows(IllegalStateException.class, () -> bankAccountService.debit(account.getId(), 150));
     }
+
+    @Test
+    public void testPrintStatement() {
+        bankAccountService.credit(account.getId(), 100);
+        bankAccountService.debit(account.getId(), 50);
+
+        List<Statement> statements = bankAccountService.printStatement(account.getId());
+
+        assertEquals(2, statements.size());
+        assertEquals("Deposit", statements.get(0).getType());
+        assertEquals(100, statements.get(0).getAmount());
+        assertEquals(50, statements.get(1).getAmount());
+        assertEquals("Withdrawal", statements.get(1).getType());
+    }
 }

@@ -25,4 +25,14 @@ public class BankAccount {
         }
         balance += amount;
     }
+
+    public void debit(int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("the retrieved amount must be positive");
+        }
+        if (balance < amount) {
+            throw new IllegalStateException("insufficient funds");
+        }
+        balance -= amount;
+    }
 }

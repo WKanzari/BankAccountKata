@@ -31,4 +31,11 @@ public class BankAccountService {
                 .orElseThrow(() -> new IllegalArgumentException("Account not found"));
         return account.getBalance();
     }
+
+    public void debit(Long accountId, int amount) {
+        BankAccount account = bankAccountRepository.findById(accountId)
+                .orElseThrow(() -> new IllegalArgumentException("Account not found"));
+        account.debit(amount);
+        bankAccountRepository.save(account);
+    }
 }

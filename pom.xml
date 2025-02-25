@@ -17,13 +17,11 @@
   </parent>
 
   <dependencies>
-    <!-- Spring Boot Starter Web pour les services REST -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
-    <!-- Spring Boot Starter Data JPA pour l'intégration avec JPA/Hibernate -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>

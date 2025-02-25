@@ -2,6 +2,8 @@ package com.katabank;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.katabank.entities.BankAccount;
+import com.katabank.services.BankAccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
